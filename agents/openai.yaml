@@ -1,0 +1,4 @@
+interface:
+  display_name: "OpenClaw Runtime Hardening"
+  short_description: "Diagnose and harden multi-agent runtime drift"
+  default_prompt: "Use $openclaw-runtime-hardening to diagnose agent routing drift and harden the runtime architecture."

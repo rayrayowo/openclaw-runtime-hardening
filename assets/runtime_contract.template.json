@@ -1,0 +1,78 @@
+{
+  "version": 1,
+  "workspaceRoot": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT",
+  "sharedRoot": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared",
+  "registry": {
+    "canonical": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/agents/agents.json",
+    "mirrors": [
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/path/to/dashboard/agents.json",
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/path/to/dashboard/custom-agents.json"
+    ]
+  },
+  "shared": {
+    "requiredDirectories": [
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/config",
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/scripts",
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/knowledge_base",
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/logs",
+      "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/reports"
+    ]
+  },
+  "rootCompatibilitySymlinks": {
+    "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/AGENTS.md": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/main-agent/AGENTS.md",
+    "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/MEMORY.md": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/main-agent/MEMORY.md"
+  },
+  "secrets": {
+    "pointer": "/ABSOLUTE/PATH/TO/.openclaw/.env",
+    "target": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/shared/config/secrets.local.env"
+  },
+  "runtime": {
+    "config": "/ABSOLUTE/PATH/TO/.openclaw/moltbot.json",
+    "threadBindingGlob": "/ABSOLUTE/PATH/TO/.openclaw/telegram/thread-bindings*.json",
+    "defaults": {
+      "workspace": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/main-agent"
+    },
+    "agents": [
+      {
+        "runtimeId": "main",
+        "registryId": "main-agent",
+        "workspace": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/main-agent",
+        "default": true,
+        "sessionFile": "/ABSOLUTE/PATH/TO/.openclaw/agents/main/sessions/sessions.json",
+        "requiredAccountId": "default"
+      },
+      {
+        "runtimeId": "domain-specialist",
+        "registryId": "domain-specialist",
+        "workspace": "/ABSOLUTE/PATH/TO/WORKSPACE_ROOT/domain-specialist",
+        "default": false,
+        "sessionFile": "/ABSOLUTE/PATH/TO/.openclaw/agents/domain-specialist/sessions/sessions.json",
+        "requiredAccountId": "specialist"
+      }
+    ],
+    "requiredBindings": [
+      {
+        "channel": "telegram",
+        "accountId": "default",
+        "agentId": "main"
+      },
+      {
+        "channel": "telegram",
+        "accountId": "specialist",
+        "agentId": "domain-specialist"
+      }
+    ],
+    "forbiddenBindings": [
+      {
+        "channel": "telegram",
+        "accountId": "default",
+        "agentId": "domain-specialist"
+      },
+      {
+        "channel": "telegram",
+        "accountId": "specialist",
+        "agentId": "main"
+      }
+    ]
+  }
+}
